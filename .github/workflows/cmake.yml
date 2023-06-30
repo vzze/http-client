@@ -12,8 +12,6 @@ on:
     branches: [ "main" ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
 
 jobs:
   build:
@@ -25,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Configure CMake
-      run: cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -S . -B build -G "MinGW Makefiles"
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -S . -B build
     - name: Build
       working-directory: ${{github.workspace}}/build
       run: cmake --build .
@@ -34,4 +32,4 @@ jobs:
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ctest -C Debug
