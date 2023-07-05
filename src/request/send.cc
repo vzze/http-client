@@ -6,7 +6,9 @@ std::string req::send(const server sv, const request re) {
     HINTERNET session = NULL, connect = NULL, request = NULL;
 
     struct hinternet_raii {
-        HINTERNET handle1, handle2, handle3;
+        HINTERNET & handle1;
+        HINTERNET & handle2;
+        HINTERNET & handle3;
 
         ~hinternet_raii() {
             if(handle1) WinHttpCloseHandle(handle1);
@@ -98,8 +100,8 @@ std::string req::send(const server sv, const request re) {
         );
 
         struct cert_raii {
-            HCERTSTORE store;
-            PCCERT_CONTEXT ctx;
+            HCERTSTORE & store;
+            PCCERT_CONTEXT & ctx;
 
             ~cert_raii() {
                 if(ctx) CertFreeCertificateContext(ctx);
